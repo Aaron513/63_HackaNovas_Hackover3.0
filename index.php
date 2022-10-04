@@ -1,3 +1,21 @@
+<?php 
+session_start();
+if (isset($_POST['fname']) && isset($_POST['email']) && isset($_POST['pass']) ){
+    if ( strlen($_POST['fname']) < 1 || strlen($_POST['email']) < 1 || strlen($_POST['pass']) < 1) {
+        $_SESSION['err'] = "Please fill your details!";
+        header( 'Location: index.php' ) ;
+        return;
+    }
+    else {
+        if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+            $_SESSION['err'] = "Invalid email format";
+            header( 'Location: index.php' ) ;
+            return;
+        }
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +28,6 @@
       rel="stylesheet"
     />
     <title>Event Planner</title>
-    <?php require 'signup.php' ?>
   </head>
   <body>
     <div class="container">
@@ -23,12 +40,12 @@
       <div class="login-form">
         <form method="post">
           <div class="subpart-form">
-            <label class="form-label" for="name">Full Name</label>
-            <?php 
-            if ( isset($_SESSION['namerr'])) {
-              echo('<p style="color: red;">'.htmlentities($_SESSION['namerr'])."</p>\n");
-              unset($_SESSION['namerr']);
+          <?php 
+            if ( isset($_SESSION['err'])) {
+              echo('<p style="color: red;">'.htmlentities($_SESSION['err'])."</p><br>\n");
+              unset($_SESSION['err']);
               } ?>
+            <label class="form-label" for="name">Full Name</label>
             <input
               class="form-input"
               name="fname"
@@ -38,11 +55,6 @@
           </div>
           <div class="subpart-form">
             <label class="form-label" for="email">Email ID</label>
-            <?php 
-            if ( isset($_SESSION['namerr'])) {
-              echo('<p style="color: red;">'.htmlentities($_SESSION['namerr'])."</p>\n");
-              unset($_SESSION['namerr']);
-              } ?>
             <input
               class="form-input"
               name="email"
