@@ -1,27 +1,27 @@
 <?php 
 require_once "pdo.php";
 session_start();
-$sql = "SELECT name, email, password FROM users";
-$stmt = $pdo->query($sql);
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
+// $sql = "SELECT name, email, password FROM users";
+// $stmt = $pdo->query($sql);
+// $row = $stmt->fetch(PDO::FETCH_ASSOC);
 if (isset($_POST['fname']) && isset($_POST['email']) && isset($_POST['pass']) ){
     if ( strlen($_POST['fname']) < 1 || strlen($_POST['email']) < 1 || strlen($_POST['pass']) < 1) {
         $_SESSION['err'] = "Please fill your details!";
-        header( 'Location: index.php' ) ;
+        header( 'Location: signin.php' ) ;
         return;
     }
     else {
         if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
             $_SESSION['err'] = "Invalid email format";
-            header( 'Location: index.php' ) ;
+            header( 'Location: signin.php' ) ;
             return;
         }
         else {
-          if ((isset($_POST['fname']) !== $row['name']) && (isset($_POST['email']) !== $row['email']) && (isset($_POST['pass']) !== $row['password'])){
-            $_SESSION['err'] = "Invalid Details!";
-            header( 'Location: index.php' ) ;
-            return;
-          }
+          // if ((isset($_POST['fname']) !== $row['name']) && (isset($_POST['email']) !== $row['email']) && (isset($_POST['pass']) !== $row['password'])){
+          //   $_SESSION['err'] = "Invalid Details!";
+          //   header( 'Location: signin.php' ) ;
+          //   return;
+          // }
         }
     }
 }

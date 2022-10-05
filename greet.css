@@ -1,0 +1,13 @@
+#text{
+    text-align: center;
+    color: antiquewhite;
+}
+
+body{
+    background-image: url("https://images2.alphacoders.com/238/238870.jpg");
+}
+
+#buttons a{
+    color: white;
+    text-decoration: none;
+}
